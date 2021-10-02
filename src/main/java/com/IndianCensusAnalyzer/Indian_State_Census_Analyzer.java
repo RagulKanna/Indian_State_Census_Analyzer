@@ -31,6 +31,8 @@ public class Indian_State_Census_Analyzer {
             return numOfEntries;
         } catch (IOException e) {
             System.out.println(e);
+        }catch (RuntimeException e) {
+                throw new CensusException("Delimiter must be a comma in csv file", CensusException.ExceptionTypes.CENSUS_WRONG_DELIMITER);
         }
         return 0;
     }

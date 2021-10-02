@@ -12,7 +12,8 @@ public class CensusAnalyzerTest {
 
     private String csv_file_path = "./src/main/resources/IndiaStateCensusData.csv";
     private String wrong_csv_file_path = "./src/main/resources/IndiaStateCensusData.csv";
-    private String incorrect_csv_file_path = "./src/main/resources/IndiaStateCensusData.txt";
+    private String incorrect_format_csv_file_path = "./src/main/resources/IndiaStateCensusData.txt";
+    private String incorrect_delimiter_csv_file_path = "./src/main/resources/IndiaStateCensusDataWrongDelimiter.csv";
 
     @Test
     public void givenIndianCensusCSVFile_WhenLoad_ShouldReturnCorrectRecords() throws CensusException {
@@ -22,14 +23,14 @@ public class CensusAnalyzerTest {
     }
 
     @Test
-    public void givenIndianCensusWrongCSVFile_WhenLoad_ShouldReturnException() throws CensusException{
+    public void givenIndianCensusWrongCSVFile_WhenLoad_ShouldReturnException() throws CensusException {
         try {
             Indian_State_Census_Analyzer analyzer = new Indian_State_Census_Analyzer();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusException.class);
             Indian_State_Census_Analyzer.load_data(wrong_csv_file_path);
         } catch (CensusException e) {
-            Assert.assertEquals(CensusException.ExceptionTypes.CENSUS_FILE_INCORRECT,e.type);
+            Assert.assertEquals(CensusException.ExceptionTypes.CENSUS_FILE_INCORRECT, e.type);
             e.printStackTrace();
         }
     }
@@ -40,9 +41,22 @@ public class CensusAnalyzerTest {
         try {
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusException.class);
-            Indian_State_Census_Analyzer.load_data(incorrect_csv_file_path);
+            Indian_State_Census_Analyzer.load_data(incorrect_format_csv_file_path);
         } catch (CensusException e) {
             Assert.assertEquals(CENSUS_WRONG_FORMAT, e.type);
         }
     }
+    @Test
+    public void givenIndianCensusCSVFile_WhenWrongDelimiter_ShouldThrowException() {
+
+        try {
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusException.class);
+            Indian_State_Census_Analyzer.load_data(incorrect_delimiter_csv_file_path);
+        }
+        catch (CensusException e) {
+            Assert.assertEquals(CensusException.ExceptionTypes.CENSUS_WRONG_DELIMITER, e.type);
+            e.printStackTrace();
+        }
+}
 }
