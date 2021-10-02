@@ -4,7 +4,7 @@ public class CensusException extends Exception {
     private static final long serialVersionUID = 1L;
 
     public enum ExceptionTypes {
-        CENSUS_FILE_INCORRECT;
+        CENSUS_FILE_INCORRECT, CENSUS_WRONG_FORMAT;
     }
 
     public ExceptionTypes type;
