@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class Indian_State_Census_Analyzer {
-    public static int load_data(String csvfilepath) {
+    public static int load_data(String csvfilepath) throws CensusException {
         Reader reader = null;
         try {
             reader = Files.newBufferedReader(Paths.get(csvfilepath));
